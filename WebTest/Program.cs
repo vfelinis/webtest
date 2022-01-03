@@ -74,4 +74,13 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.Run();
+if (app.Environment.IsDevelopment())
+{
+    app.Run();
+}
+else
+{
+    var port = Environment.GetEnvironmentVariable("PORT");
+    app.Run($"http://localhost:{port}");
+}
+    
