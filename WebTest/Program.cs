@@ -53,8 +53,16 @@ app.MapPost("/", (string firstName, string lastName, ApplicationContext dbContex
 
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
-    dbContext.Database.Migrate();
+    try
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        app.Logger.LogError(ex, ex.Message);
+    }
+    
 }
 
 app.Run();
