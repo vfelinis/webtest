@@ -5,8 +5,10 @@ namespace WebTest.Data
 {
     public class ApplicationContext: DbContext
     {
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
+        protected readonly IConfiguration _config;
+        public ApplicationContext(IConfiguration config)
         {
+            _config = config;
         }
 
         public DbSet<User> Users { get; set; }

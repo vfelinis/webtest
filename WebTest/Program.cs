@@ -9,8 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationContext>(x => x.UseSqlite(connectionString));
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDbContext<ApplicationContext, DevApplicationContext>();
+}
+else
+{
+    builder.Services.AddDbContext<ApplicationContext, ProdApplicationContext>();
+}
 
 var app = builder.Build();
 
