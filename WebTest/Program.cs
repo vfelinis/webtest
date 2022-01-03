@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-if (builder.Environment.IsDevelopment() || true)
+if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<ApplicationContext, DevApplicationContext>();
 }
@@ -32,7 +32,7 @@ else
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.MapGet("/", (ApplicationContext dbContext) =>
 {
@@ -62,7 +62,6 @@ using (var scope = app.Services.CreateScope())
     {
         app.Logger.LogError(ex, ex.Message);
     }
-    
 }
 
 app.Run();
