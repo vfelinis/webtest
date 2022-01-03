@@ -42,7 +42,7 @@ else
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.MapGet("/", (ApplicationContext dbContext) =>
 {
@@ -80,7 +80,6 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    var port = Environment.GetEnvironmentVariable("PORT");
-    app.Run($"http://localhost:{port}");
+    app.Run($"http://*:{Environment.GetEnvironmentVariable("PORT")}");
 }
     
